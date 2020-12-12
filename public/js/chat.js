@@ -64,18 +64,12 @@ socket.on('message', (message) => {
 });
 
 socket.on('roomData', ({ room, users }) => {
-	const html = Mustache.render(sidebarTemplate, { room, users });
-	sidebar.insertAdjacentHTML('beforeend', html);
+	// Render sidebar inside chat page
+	const htmlSidebar = Mustache.render(sidebarTemplate, { room, users });
+	sidebar.insertAdjacentHTML('beforeend', htmlSidebar);
 });
 
 // Emitting events
-
-socket.emit('join', { username, room }, (error) => {
-	if (error) {
-		alert(error);
-		location.href = '/';
-	}
-});
 
 // Event Listeners
 
@@ -113,4 +107,15 @@ shareLocationBtn.addEventListener('click', () => {
 			shareLocationBtn.removeAttribute('disabled');
 		});
 	});
+});
+
+socket.emit('createRoom', { username, room }, (error) => {
+	if (error) {
+		alert(error);
+		location.href = '/';
+	}
+});
+
+socket.emit('joinRoom', { username, room }, () => {
+	console.log('joined');
 });

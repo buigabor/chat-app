@@ -12,6 +12,7 @@ const {
 	getUser,
 	getUsersInRoom,
 } = require('./utils/users');
+const { createRoom, removeRoom, getRooms } = require('./utils/rooms');
 
 const app = express();
 const http = require('http');
@@ -28,28 +29,57 @@ app.use(express.static(publicDirectory));
 // io.to(roomName).emit - emit to everyone in room
 
 io.on('connection', (socket) => {
-	socket.on('join', ({ username, room }, callback) => {
-		const { error, user } = addUser({ id: socket.id, username, room });
+	io.emit('availableRooms', {
+		rooms: getRooms(),
+	});
 
-		if (error) {
-			return callback(error);
+	socket.on('createRoom', ({ username, room }, callback) => {
+		const { errorUser, user } = addUser({ id: socket.id, username, room });
+		const { errorRoom, createdRoom } = createRoom(room);
+		if (errorRoom) {
+			return callback(errorRoom);
+		} else if (errorUser) {
+			return callback(errorUser);
 		}
 
-		socket.join(user.room);
+		// socket.join(createdRoom);
+		// // Emit messages
+		// socket.emit('message', generateMessage('Admin', 'Welcome'));
+		// socket.broadcast
+		// 	.to(createdRoom)
+		// 	.emit(
+		// 		'message',
+		// 		generateMessage('Admin', `${user.username} has joined!`),
+		// 	);
+		// // Emit room datas to everyone in the room
+		// io.to(createdRoom).emit('roomData', {
+		// 	room: createdRoom,
+		// 	users: getUsersInRoom(createdRoom),
+		// });
+
+		callback();
+	});
+
+	socket.on('joinRoom', ({ username, room }, callback) => {
+		// const user = getUser(socket.id);
+		socket.join(room);
 
 		socket.emit('message', generateMessage('Admin', 'Welcome'));
 		socket.broadcast
-			.to(user.room)
-			.emit(
-				'message',
-				generateMessage('Admin', `${user.username} has joined!`),
-			);
-		io.to(user.room).emit('roomData', {
-			room: user.room,
-			users: getUsersInRoom(user.room),
+			.to(room)
+			.emit('message', generateMessage('Admin', `${username} has joined!`));
+		io.to(room).emit('roomData', {
+			room: room,
+			users: getUsersInRoom(room),
 		});
 
 		callback();
+	});
+
+	socket.on('getAvailabeRooms', () => {
+		io.emit('availableRooms', {
+			rooms: getRooms(),
+		});
 	});
 
 	socket.on('sendMessage', (message, callback) => {
@@ -67,7 +97,6 @@ io.on('connection', (socket) => {
 
 	socket.on('sendLocation', (location, callback) => {
 		const user = getUser(socket.id);
-
 		io.to(user.room).emit(
 			'locationMessage',
 			generateLocationMessage(
@@ -79,18 +108,23 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('disconnect', () => {
+		// Remove User
 		const user = removeUser(socket.id);
-
+		console.log(user);
 		if (user) {
 			io.to(user.room).emit(
 				'message',
 				generateMessage('Admin', `${user.username} has left!`),
 			);
-
 			io.to(user.room).emit('roomData', {
 				room: user.room,
 				users: getUsersInRoom(user.room),
 			});
+		}
+		console.log(getUsersInRoom());
+		// Check if room is empty, delete room
+		if (getUsersInRoom(user.room).length === 0) {
+			removeRoom(user.room);
 		}
 	});
 });
