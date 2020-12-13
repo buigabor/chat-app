@@ -4,9 +4,12 @@ const socket = io();
 const formSubmitBtn = document.getElementById('submit-message');
 const shareLocationBtn = document.getElementById('send-location');
 const form = document.querySelector('form');
-const formInput = document.querySelector('input');
+const formInput = document.querySelector('.form-input__message');
 const messages = document.getElementById('messages');
 const sidebar = document.getElementById('sidebar');
+const emojiIcon = document.querySelector('.form-input__emoji');
+const tooltip = document.querySelector('.tooltip');
+const emojiPicker = document.querySelector('emoji-picker');
 
 // Templates
 const messageTemplate = document.getElementById('message-template').innerHTML;
@@ -118,4 +121,18 @@ socket.emit('createRoom', { username, room }, (error) => {
 
 socket.emit('joinRoom', { username, room }, () => {
 	console.log('joined');
+});
+
+// Emoji setup
+
+messages.addEventListener('click', () => {
+	tooltip.classList.remove('shown');
+});
+
+emojiIcon.addEventListener('click', () => {
+	tooltip.classList.toggle('shown');
+});
+
+emojiPicker.addEventListener('emoji-click', (event) => {
+	formInput.value += event.detail.unicode;
 });

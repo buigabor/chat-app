@@ -21,6 +21,7 @@ const io = socketio(server);
 
 const port = process.env.PORT || 3000;
 const publicDirectory = path.join(__dirname, '../public');
+console.log(publicDirectory);
 app.use(express.static(publicDirectory));
 
 // socket.emit - emit to that particular user
