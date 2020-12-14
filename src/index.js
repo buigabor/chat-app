@@ -43,21 +43,6 @@ io.on('connection', (socket) => {
 			return callback(errorUser);
 		}
 
-		// socket.join(createdRoom);
-		// // Emit messages
-		// socket.emit('message', generateMessage('Admin', 'Welcome'));
-		// socket.broadcast
-		// 	.to(createdRoom)
-		// 	.emit(
-		// 		'message',
-		// 		generateMessage('Admin', `${user.username} has joined!`),
-		// 	);
-		// // Emit room datas to everyone in the room
-		// io.to(createdRoom).emit('roomData', {
-		// 	room: createdRoom,
-		// 	users: getUsersInRoom(createdRoom),
-		// });
-
 		callback();
 	});
 
@@ -65,7 +50,7 @@ io.on('connection', (socket) => {
 		// const user = getUser(socket.id);
 		socket.join(room);
 
-		socket.emit('message', generateMessage('Admin', 'Welcome'));
+		socket.emit('message', generateMessage('Admin', 'Welcome! 👋'));
 		socket.broadcast
 			.to(room)
 			.emit('message', generateMessage('Admin', `${username} has joined!`));
@@ -92,7 +77,7 @@ io.on('connection', (socket) => {
 
 		const user = getUser(socket.id);
 
-		io.to(user.room).emit('message', generateMessage(user.username, message));
+		io.to(user.room).emit('messageMe', generateMessage(user.username, message));
 		callback('Delivered');
 	});
 

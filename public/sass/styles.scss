@@ -141,15 +141,43 @@ li {
 }
 
 .chat__messages {
-	flex-grow: 1;
-	padding: 24px 24px 0 24px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-direction: column;
+	width: 100%;
+	padding: calc(1rem + 1.7vh) calc(2rem + 2vw);
+	flex: 1 1 20rem;
 	overflow-y: scroll;
+	position: relative;
+}
+
+.input-wrapper {
+	position: relative;
+	flex: 1 1 30rem;
+	display: flex;
 }
 
 /* Message Styles */
 
 .message {
-	margin-bottom: 16px;
+	max-width: 40vw;
+	border-radius: 2rem;
+	display: inline-block;
+	word-wrap: break-word;
+	margin: 1rem 0;
+	padding: 0.9rem 1.8rem;
+	background: whitesmoke;
+	font-size: calc(0.5rem + 1vw);
+}
+
+.me {
+	background: rgba(132, 103, 194, 1);
+	align-self: flex-end;
+	color: white;
+	& .message__meta {
+		color: white;
+	}
 }
 
 .message__name {
@@ -194,14 +222,26 @@ li {
 		flex-basis: 83%;
 	}
 
-	&__message {
-		flex-grow: 1;
+	&__message-input {
+		flex: 1 1 30rem;
+		margin-right: 1rem;
+		padding: 0.75rem;
+		border-radius: 0.6rem;
+		border: none;
+		background: #ebebeb;
+		font-size: 1rem;
+		padding-right: 5rem;
+		&[type='text'] {
+			padding-right: 3rem;
+		}
 	}
 
 	&__emoji {
-		cursor: pointer;
 		position: absolute;
-		right: 10.5%;
+		right: 1.8rem;
+		top: 0.4rem;
+		cursor: pointer;
+		font-size: 1.5rem;
 	}
 
 	&__form {
@@ -217,13 +257,6 @@ li {
 
 .fa-map-marker-alt {
 	margin-left: 5px;
-}
-.form-wrapper input {
-	border: 1px solid #eeeeee;
-	width: 100%;
-	margin-right: 10px;
-	padding: 12px;
-	flex-grow: 1;
 }
 
 .form-wrapper button {

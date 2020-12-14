@@ -164,16 +164,59 @@ li {
 }
 
 .chat__messages {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  padding: calc(1rem + 1.7vh) calc(2rem + 2vw);
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  padding: 24px 24px 0 24px;
+      -ms-flex: 1 1 20rem;
+          flex: 1 1 20rem;
   overflow-y: scroll;
+  position: relative;
+}
+
+.input-wrapper {
+  position: relative;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 30rem;
+          flex: 1 1 30rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 /* Message Styles */
 .message {
-  margin-bottom: 16px;
+  max-width: 40vw;
+  border-radius: 2rem;
+  display: inline-block;
+  word-wrap: break-word;
+  margin: 1rem 0;
+  padding: 0.9rem 1.8rem;
+  background: whitesmoke;
+  font-size: calc(0.5rem + 1vw);
+}
+
+.me {
+  background: #8467c2;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  color: white;
+}
+
+.me .message__meta {
+  color: white;
 }
 
 .message__name {
@@ -222,16 +265,29 @@ li {
       flex-basis: 83%;
 }
 
-.form-input__message {
+.form-input__message-input {
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+      -ms-flex: 1 1 30rem;
+          flex: 1 1 30rem;
+  margin-right: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.6rem;
+  border: none;
+  background: #ebebeb;
+  font-size: 1rem;
+  padding-right: 5rem;
+}
+
+.form-input__message-input[type='text'] {
+  padding-right: 3rem;
 }
 
 .form-input__emoji {
-  cursor: pointer;
   position: absolute;
-  right: 10.5%;
+  right: 1.8rem;
+  top: 0.4rem;
+  cursor: pointer;
+  font-size: 1.5rem;
 }
 
 .form-input__form {
@@ -254,16 +310,6 @@ li {
 
 .fa-map-marker-alt {
   margin-left: 5px;
-}
-
-.form-wrapper input {
-  border: 1px solid #eeeeee;
-  width: 100%;
-  margin-right: 10px;
-  padding: 12px;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
 }
 
 .form-wrapper button {

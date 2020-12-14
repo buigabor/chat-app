@@ -18,14 +18,18 @@
 
         </div>
         <div class="chat__main">
-            <div id="messages" class="chat__messages"></div>
+            <div id="messages" class="chat__messages">
+
+            </div>
 
             <div class="form-wrapper">
                 <div class="form-input__wrapper">
                     <form class="form-input__form">
-                        <input class="form-input__message" name='message' placeholder="Message" type="text" required
-                            autocomplete="off">
-                        <div class="form-input__emoji">😀</div>
+                        <div class="input-wrapper">
+                            <input class="form-input__message-input" name='message' placeholder="Message" type="text"
+                                required autocomplete="off">
+                            <div class="form-input__emoji">😀</div>
+                        </div>
                         <button id="submit-message" type="submit">Send</button>
                         <div class="tooltip" role="tooltip">
                             <emoji-picker></emoji-picker>
@@ -41,11 +45,21 @@
         </div>
     </div>
 
-    <script id="message-template" type="text/html">
-        <div class='message'>
+    <script id="message-template-me" type="text/html">
+        <div class='message me'>
             <p>
                 <span class='message__name'>{{username}}</span>
                 <span class='message__meta'>{{createdAt}}</span>
+            </p>
+            <p>{{ message }}</p>
+        </div>
+    </script>
+
+    <script id="message-template" type="text/html">
+        <div class='message'>
+            <p>
+                <span class='message__name'>{{ username }}</span>
+                <span class='message__meta'>{{ createdAt }}</span>
             </p>
             <p>{{ message }}</p>
         </div>
