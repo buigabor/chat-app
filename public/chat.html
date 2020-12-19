@@ -25,18 +25,15 @@
             <div class="form-wrapper">
                 <div class="form-input__wrapper">
                     <form class="form-input__form">
-                        <div class="input-wrapper">
-                            <input class="form-input__message-input" name='message' placeholder="Message" type="text"
-                                required autocomplete="off">
-                            <div class="form-input__emoji">😀</div>
-                        </div>
-                        <button id="submit-message" type="submit">Send</button>
+                        <input class="form-input__message-input" name='message' placeholder="Message" type="text"
+                            required autocomplete="off">
+                        <div class="form-input__emoji">😀</div>
                         <div class="tooltip" role="tooltip">
                             <emoji-picker></emoji-picker>
                         </div>
                     </form>
                 </div>
-
+                <button id="submit-message" type="submit">Send</button>
                 <button id='send-location'>Share <i class="fas fa-map-marker-alt"></i></button>
                 <button id='send-picture'>Picture</button>
 

@@ -186,16 +186,6 @@ li {
   position: relative;
 }
 
-.input-wrapper {
-  position: relative;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 30rem;
-          flex: 1 1 30rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 /* Message Styles */
 .message {
   max-width: 40vw;
@@ -255,14 +245,15 @@ li {
   margin-top: 16px;
   padding: 24px;
   gap: 10px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
 }
 
 .form-input__wrapper {
-  -ms-flex-preferred-size: 83%;
-      flex-basis: 83%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 
 .form-input__message-input {
@@ -270,12 +261,11 @@ li {
       -ms-flex: 1 1 30rem;
           flex: 1 1 30rem;
   margin-right: 1rem;
-  padding: 0.75rem;
+  padding: 1.2rem;
   border-radius: 0.6rem;
   border: none;
   background: #ebebeb;
   font-size: 1rem;
-  padding-right: 5rem;
 }
 
 .form-input__message-input[type='text'] {
@@ -284,8 +274,8 @@ li {
 
 .form-input__emoji {
   position: absolute;
-  right: 1.8rem;
-  top: 0.4rem;
+  right: 2rem;
+  top: 0.8rem;
   cursor: pointer;
   font-size: 1.5rem;
 }
