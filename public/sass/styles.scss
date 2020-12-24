@@ -1,3 +1,8 @@
+/* Variables */
+
+$primary-color:#7c5cbf;
+$secondary-color:#ebebeb;
+
 /* General Styles */
 
 * {
@@ -40,11 +45,13 @@ input {
 button {
 	cursor: pointer;
 	padding: 12px;
-	background: #7c5cbf;
+	background: $primary-color;
 	border: none;
 	color: white;
 	font-size: 16px;
 	transition: background 0.3s ease;
+	border-radius: .5em;
+	outline: none;
 }
 
 button:hover {
@@ -92,9 +99,9 @@ li {
 	cursor: pointer;
 	padding: 12px;
 	background: white;
-	border: 2px solid #7c5cbf;
+	border: 2px solid $primary-color;
 	border-radius: 20px;
-	color: #7c5cbf;
+	color: $primary-color;
 	font-size: 16px;
 	transition: background 0.3s ease;
 	margin-bottom: 10px;
@@ -102,7 +109,7 @@ li {
 }
 
 .rooms__btn:hover {
-	background-color: #7c5cbf;
+	background-color: $primary-color;
 	color: white;
 }
 
@@ -172,6 +179,9 @@ li {
 	& .message__meta {
 		color: white;
 	}
+	& a{
+		color:white !important;
+	}
 }
 
 .message__name {
@@ -209,21 +219,25 @@ li {
 	padding: 24px;
 	gap: 10px;
 	align-items: stretch;
-	// height: 7rem;
+	& button{
+		font-size: 1.1rem;
+		font-weight: 600;
+		flex-grow: 1;
+	}
 }
 
 .form-input {
 	&__wrapper {
 		flex: 1 1 auto;
+			flex-basis: 65%;
 	}
 
 	&__message-input {
 		flex: 1 1 30rem;
-		margin-right: 1rem;
-		padding: 1.2rem;
+		padding: 1.3rem;
 		border-radius: 0.6rem;
 		border: none;
-		background: #ebebeb;
+		background: $secondary-color;
 		font-size: 1rem;
 		&[type='text'] {
 			padding-right: 3rem;
@@ -232,8 +246,8 @@ li {
 
 	&__emoji {
 		position: absolute;
-		right: 2rem;
-		top: 0.8rem;
+		right: 1.5rem;
+		top: 0.9rem;
 		cursor: pointer;
 		font-size: 1.5rem;
 	}
@@ -241,22 +255,58 @@ li {
 	&__form {
 		display: flex;
 		flex-grow: 1;
-		margin-right: 16px;
 		position: relative;
 		justify-content: space-between;
 		align-items: center;
-		width: 100%;
 	}
+
+}
+
+.send-picture-box{
+
+}
+
+#send-picture{
+	cursor: pointer;
+	padding:14px;
+	background: $primary-color;
+	border: none;
+	color: white;
+	font-size: 16px;
+	transition: background 0.3s ease;
+	border-radius: .5em;
+	outline: none;
+	margin-bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#send-location{
+background:$secondary-color;
+color: $primary-color;
+&:hover{
+background-color: #e0e0e0;
+}
+}
+
+#fileInput{
+	display: none;
 }
 
 .fa-map-marker-alt {
 	margin-left: 5px;
 }
 
-.form-wrapper button {
-	font-size: 14px;
+
+.fa-image{
+	font-size: 1.9rem;
 }
 
+#map{
+	min-height: 350px;
+	width: 350px;
+}
 /* Chat Sidebar Styles */
 
 .room-title {

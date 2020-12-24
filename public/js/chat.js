@@ -10,6 +10,8 @@ const sidebar = document.getElementById('sidebar');
 const emojiIcon = document.querySelector('.form-input__emoji');
 const tooltip = document.querySelector('.tooltip');
 const emojiPicker = document.querySelector('emoji-picker');
+const sendImageInput = document.getElementById('fileInput');
+const selectedFile = document.getElementById('fileInput').files[0];
 
 // Templates
 const messageTemplateMe = document.getElementById('message-template-me')
@@ -23,10 +25,10 @@ const { username, room } = Qs.parse(location.search, {
 	ignoreQueryPrefix: true,
 });
 
-const autoSCROLL = (type) => {
+const autoScroll = (type) => {
 	setTimeout(() => {
 		if (type === 'location') {
-			const allMessages = chatDiv.querySelectorAll('.message');
+			const allMessages = messages.querySelectorAll('.message');
 			const twoLocation = [...allMessages].slice(-2);
 			let allTwoHeights =
 				twoLocation[0].offsetHeight + twoLocation[1].offsetHeight;
@@ -37,12 +39,12 @@ const autoSCROLL = (type) => {
 				parseInt(messageStyles1.marginBottom) * 2 +
 				parseInt(messageStyles2.marginBottom) * 2 +
 				allTwoHeights;
-			const visibleMessageContHeight = chatDiv.offsetHeight + 10;
-			const scrolledDistance = chatDiv.scrollTop + visibleMessageContHeight;
-			const fullChatDivHeight = chatDiv.scrollHeight;
+			const visibleMessageContHeight = messages.offsetHeight + 10;
+			const scrolledDistance = messages.scrollTop + visibleMessageContHeight;
+			const fullChatDivHeight = messages.scrollHeight;
 			console.log(fullMessageHeight);
 			if (fullChatDivHeight - fullMessageHeight <= scrolledDistance) {
-				chatDiv.scrollTop = fullChatDivHeight;
+				messages.scrollTop = fullChatDivHeight;
 			}
 		} else {
 			const newMessage = messages.lastElementChild;
@@ -63,14 +65,32 @@ const autoSCROLL = (type) => {
 // Recieving events
 
 socket.on('locationMessage', (message) => {
+	console.log(message.location);
+	let coords = new google.maps.LatLng(
+		message.location.latitude,
+		message.location.longitude,
+	);
+	let mapOptions = {
+		zoom: 15,
+		center: coords,
+	};
+	let mapDiv = document.createElement('div');
+	mapDiv.id = 'map';
+	mapDiv.classList.add('message', 'me');
+	let map = new google.maps.Map(mapDiv, mapOptions);
+	let marker = new google.maps.Marker({ map, position: coords });
 	const html = Mustache.render(locationTemplate, {
 		username: message.username,
 		url: message.url,
 		createdAt: moment(message.createdAt).format('H:mm A'),
 	});
+
 	messages.insertAdjacentHTML('beforeend', html);
-	autoSCROLL();
+	messages.appendChild(mapDiv);
+	autoScroll('location');
 });
+
+socket.on('imageMessage', (file) => {});
 
 socket.on('messageMe', (message) => {
 	const html = Mustache.render(messageTemplateMe, {
@@ -79,7 +99,7 @@ socket.on('messageMe', (message) => {
 		createdAt: moment(message.createdAt).format('H:mm A'),
 	});
 	messages.insertAdjacentHTML('beforeend', html);
-	autoSCROLL();
+	autoScroll();
 });
 
 socket.on('message', (message) => {
@@ -89,7 +109,7 @@ socket.on('message', (message) => {
 		createdAt: moment(message.createdAt).format('H:mm A'),
 	});
 	messages.insertAdjacentHTML('beforeend', messageHtml);
-	autoSCROLL();
+	autoScroll();
 });
 
 socket.on('roomData', ({ room, users }) => {
@@ -97,8 +117,6 @@ socket.on('roomData', ({ room, users }) => {
 	const htmlSidebar = Mustache.render(sidebarTemplate, { room, users });
 	sidebar.insertAdjacentHTML('beforeend', htmlSidebar);
 });
-
-// Emitting events
 
 // Event Listeners
 
@@ -137,6 +155,17 @@ shareLocationBtn.addEventListener('click', () => {
 		});
 	});
 });
+
+sendImageInput.addEventListener('change', () => {
+	sendImageInput.setAttribute('disabled', 'disabled');
+
+	socket.emit('sendImage', selectedFile, (message) => {
+		console.log(message);
+		sendImageInput.setAttribute('disabled', 'disabled');
+	});
+});
+
+// Emitting events
 
 socket.emit('createRoom', { username, room }, (error) => {
 	if (error) {

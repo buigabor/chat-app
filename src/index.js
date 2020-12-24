@@ -88,9 +88,16 @@ io.on('connection', (socket) => {
 			generateLocationMessage(
 				user.username,
 				`https://google.com/maps?q=${location.latitude},${location.longitude}`,
+				location,
 			),
 		);
 		callback('Location shared');
+	});
+
+	socket.on('sendImage', (file, callback) => {
+		const user = getUser(socket.id);
+		io.to(user.room).emit('imageMessage', file);
+		callback('Image sent!');
 	});
 
 	socket.on('disconnect', () => {
