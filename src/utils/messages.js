@@ -5,7 +5,12 @@ const generateMessage = (username, message) => {
 const generateLocationMessage = (username, url, location) => {
 	return { username, url, createdAt: new Date().getTime(), location };
 };
+
+const generateImageMessage = (username, file) => {
+	return { username, file, createdAt: new Date().getTime() };
+};
 module.exports = {
 	generateMessage,
 	generateLocationMessage,
+	generateImageMessage,
 };

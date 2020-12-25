@@ -35,7 +35,7 @@
                 </div>
                 <button id="submit-message" type="submit">Send</button>
                 <button id='send-location'>Share <i class="fas fa-map-marker-alt"></i></button>
-                <input type="file" name="fileInput" id="fileInput" hidden  accept="image/png, image/jpeg">
+                <input type="file" name="fileInput" id="fileInput" hidden accept="image/*">
                 <label for="fileInput" id="send-picture"><i class="far fa-image"></i></label>
             </div>
 
@@ -69,12 +69,17 @@
                 <span class='message__meta'>{{createdAt}}</span>
                 </p>
                 <p><a href={{url}} target="_blank">My location</a></p>
-
             </div>
     </script>
 
     <script id="image-template" type="text/html">
-            <div class='image-wrap'></div>
+            <div class='image-message'>
+                <p>
+                <span class='message__name'>{{username}}</span>
+                <span class='message__meta'>{{createdAt}}</span>
+                </p>
+                <img src={{imageURL}} class="image-style">
+            </div>
     </script>
 
 

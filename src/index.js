@@ -5,6 +5,7 @@ const Filter = require('bad-words');
 const {
 	generateMessage,
 	generateLocationMessage,
+	generateImageMessage,
 } = require('./utils/messages');
 const {
 	addUser,
@@ -94,9 +95,12 @@ io.on('connection', (socket) => {
 		callback('Location shared');
 	});
 
-	socket.on('sendImage', (file, callback) => {
+	socket.on('sendImage', (imageFile, callback) => {
 		const user = getUser(socket.id);
-		io.to(user.room).emit('imageMessage', file);
+		io.to(user.room).emit(
+			'imageMessage',
+			generateImageMessage(user.username, imageFile),
+		);
 		callback('Image sent!');
 	});
 

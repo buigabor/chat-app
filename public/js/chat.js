@@ -11,7 +11,6 @@ const emojiIcon = document.querySelector('.form-input__emoji');
 const tooltip = document.querySelector('.tooltip');
 const emojiPicker = document.querySelector('emoji-picker');
 const sendImageInput = document.getElementById('fileInput');
-const selectedFile = document.getElementById('fileInput').files[0];
 
 // Templates
 const messageTemplateMe = document.getElementById('message-template-me')
@@ -19,6 +18,7 @@ const messageTemplateMe = document.getElementById('message-template-me')
 const messageTemplate = document.getElementById('message-template').innerHTML;
 const locationTemplate = document.getElementById('location-template').innerHTML;
 const sidebarTemplate = document.getElementById('sidebar-template').innerHTML;
+const imageTemplate = document.getElementById('image-template').innerHTML;
 
 // Options
 const { username, room } = Qs.parse(location.search, {
@@ -79,18 +79,26 @@ socket.on('locationMessage', (message) => {
 	mapDiv.classList.add('message', 'me');
 	let map = new google.maps.Map(mapDiv, mapOptions);
 	let marker = new google.maps.Marker({ map, position: coords });
-	const html = Mustache.render(locationTemplate, {
+	const locationHtml = Mustache.render(locationTemplate, {
 		username: message.username,
 		url: message.url,
 		createdAt: moment(message.createdAt).format('H:mm A'),
 	});
 
-	messages.insertAdjacentHTML('beforeend', html);
+	messages.insertAdjacentHTML('beforeend', locationHtml);
 	messages.appendChild(mapDiv);
 	autoScroll('location');
 });
 
-socket.on('imageMessage', (file) => {});
+socket.on('imageMessage', (message) => {
+	const imageHtml = Mustache.render(imageTemplate, {
+		imageURL: message.file,
+		username: message.username,
+		createdAt: moment(message.createdAt).format('H:mm A'),
+	});
+	messages.insertAdjacentHTML('beforeend', imageHtml);
+	autoScroll();
+});
 
 socket.on('messageMe', (message) => {
 	const html = Mustache.render(messageTemplateMe, {
@@ -156,12 +164,19 @@ shareLocationBtn.addEventListener('click', () => {
 	});
 });
 
-sendImageInput.addEventListener('change', () => {
+sendImageInput.addEventListener('change', (e) => {
+	const selectedFile = e.target.files[0];
+	const imageURL = URL.createObjectURL(e.target.files[0]);
+	if (selectedFile.size > 10000000) {
+		return alert('File is too big');
+	} else if (!selectedFile.type.includes('image')) {
+		return alert('Please insert an image');
+	}
 	sendImageInput.setAttribute('disabled', 'disabled');
 
-	socket.emit('sendImage', selectedFile, (message) => {
+	socket.emit('sendImage', imageURL, (message) => {
 		console.log(message);
-		sendImageInput.setAttribute('disabled', 'disabled');
+		sendImageInput.removeAttribute('disabled');
 	});
 });
 
