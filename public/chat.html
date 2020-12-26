@@ -18,6 +18,15 @@
 
         </div>
         <div class="chat__main">
+            <div class="chat__nav">
+                <div class="chat__nav-logo">
+                    <span class="chat__nav-title">Chatzoid</span>
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="chat__nav-options">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+            </div>
             <div id="messages" class="chat__messages">
 
             </div>
@@ -62,13 +71,33 @@
         </div>
     </script>
 
-    <script id="location-template" type="text/html">
+    <script id="location-template-me" type="text/html">
             <div class='message me'>
                  <p>
                 <span class='message__name'>{{username}}</span>
                 <span class='message__meta'>{{createdAt}}</span>
                 </p>
                 <p><a href={{url}} target="_blank">My location</a></p>
+            </div>
+    </script>
+
+    <script id="location-template" type="text/html">
+            <div class='message'>
+                 <p>
+                <span class='message__name'>{{username}}</span>
+                <span class='message__meta'>{{createdAt}}</span>
+                </p>
+                <p><a href={{url}} target="_blank">My location</a></p>
+            </div>
+    </script>
+
+     <script id="image-template-me" type="text/html">
+            <div class='image-message image-message-me'>
+                <p>
+                <span class='message__name'>{{username}}</span>
+                <span class='message__meta'>{{createdAt}}</span>
+                </p>
+                <img src={{imageURL}} class="image-style">
             </div>
     </script>
 
@@ -101,9 +130,8 @@
     <script src="/socket.io/socket.io.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 
- <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_BmVco1eyuvb99eOim8YWX1FoUP0xg08"> </script>
-    <script src="./js/chat.js" type="module"></script>
+ <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_BmVco1eyuvb99eOim8YWX1FoUP0xg08"> </script>
+<script src="./js/chat.js" type="module"></script>
 
 </script>
 </body>

@@ -1,0 +1,55 @@
+.centered-form {
+	background: #333744;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2.5rem;
+}
+
+.centered-form__box {
+	box-shadow: 0px 0px 17px 1px #1d1f26;
+	background: #f7f7fa;
+	padding: 24px;
+	width: 18rem;
+	border-radius: 6px;
+}
+
+.centered-form button {
+	width: 100%;
+}
+
+.centered-form input {
+	margin-bottom: 16px;
+	width: 100%;
+}
+
+.rooms__btn {
+	cursor: pointer;
+	padding: 12px;
+	background: white;
+	border: 2px solid $primary-color;
+	border-radius: 20px;
+	color: $primary-color;
+	font-size: 16px;
+	transition: background 0.3s ease;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+.rooms__btn:hover {
+	background-color: $primary-color;
+	color: white;
+}
+
+.rooms__btn-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.rooms__btn-icon {
+	font-size: 1.2rem;
+	position: absolute;
+	right: 20px;
+}

@@ -1,0 +1,47 @@
+@import '../utility/variables';
+
+.chat {
+	display: flex;
+}
+
+.chat__sidebar {
+	height: 100vh;
+	color: white;
+	background: #333744;
+	width: 275px;
+	overflow-y: scroll;
+}
+
+.chat__nav {
+	height: 11.5vh;
+	color: $primary-color;
+	font-weight: 600;
+	background-color: $secondary-color;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr;
+	grid-template-areas: '. logo option';
+	&-logo {
+		justify-self: center;
+		grid-area: logo;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		& span {
+			font-size: 1.7rem;
+		}
+		& i {
+			font-size: 2rem;
+		}
+	}
+	&-options {
+		grid-area: option;
+		justify-self: end;
+		align-self: center;
+		& i {
+			font-size: 2.4rem;
+			margin-right: 2.2rem;
+		}
+	}
+}

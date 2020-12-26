@@ -36,19 +36,19 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('createRoom', ({ username, room }, callback) => {
-		const { errorUser, user } = addUser({ id: socket.id, username, room });
 		const { errorRoom, createdRoom } = createRoom(room);
 		if (errorRoom) {
 			return callback(errorRoom);
-		} else if (errorUser) {
-			return callback(errorUser);
 		}
 
 		callback();
 	});
 
 	socket.on('joinRoom', ({ username, room }, callback) => {
-		// const user = getUser(socket.id);
+		const { errorUser, user } = addUser({ id: socket.id, username, room });
+		if (errorUser) {
+			return callback(errorUser);
+		}
 		socket.join(room);
 
 		socket.emit('message', generateMessage('Admin', 'Welcome! 👋'));
@@ -60,7 +60,7 @@ io.on('connection', (socket) => {
 			users: getUsersInRoom(room),
 		});
 
-		callback();
+		callback('Joined room');
 	});
 
 	socket.on('getAvailabeRooms', () => {
@@ -78,14 +78,37 @@ io.on('connection', (socket) => {
 
 		const user = getUser(socket.id);
 
-		io.to(user.room).emit('messageMe', generateMessage(user.username, message));
+		// io.to(user.room).emit('messageMe', generateMessage(user.username, message));
+		socket.broadcast
+			.to(user.room)
+			.emit('message', generateMessage(user.username, message));
+		socket.emit('messageMe', generateMessage(user.username, message));
 		callback('Delivered');
 	});
 
 	socket.on('sendLocation', (location, callback) => {
 		const user = getUser(socket.id);
-		io.to(user.room).emit(
-			'locationMessage',
+		// io.to(user.room).emit(
+		// 	'locationMessage',
+		// 	generateLocationMessage(
+		// 		user.username,
+		// 		`https://google.com/maps?q=${location.latitude},${location.longitude}`,
+		// 		location,
+		// 	),
+		// );
+
+		socket.broadcast
+			.to(user.room)
+			.emit(
+				'locationMessage',
+				generateLocationMessage(
+					user.username,
+					`https://google.com/maps?q=${location.latitude},${location.longitude}`,
+					location,
+				),
+			);
+		socket.emit(
+			'locationMessageMe',
 			generateLocationMessage(
 				user.username,
 				`https://google.com/maps?q=${location.latitude},${location.longitude}`,
@@ -97,10 +120,19 @@ io.on('connection', (socket) => {
 
 	socket.on('sendImage', (imageFile, callback) => {
 		const user = getUser(socket.id);
-		io.to(user.room).emit(
-			'imageMessage',
+		// io.to(user.room).emit(
+		// 	'imageMessage',
+		// 	generateImageMessage(user.username, imageFile),
+		// );
+
+		socket.broadcast
+			.to(user.room)
+			.emit('imageMessage', generateImageMessage(user.username, imageFile));
+		socket.emit(
+			'imageMessageMe',
 			generateImageMessage(user.username, imageFile),
 		);
+
 		callback('Image sent!');
 	});
 

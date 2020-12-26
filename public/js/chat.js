@@ -16,12 +16,15 @@ const sendImageInput = document.getElementById('fileInput');
 const messageTemplateMe = document.getElementById('message-template-me')
 	.innerHTML;
 const messageTemplate = document.getElementById('message-template').innerHTML;
+const locationTemplateMe = document.getElementById('location-template-me')
+	.innerHTML;
 const locationTemplate = document.getElementById('location-template').innerHTML;
 const sidebarTemplate = document.getElementById('sidebar-template').innerHTML;
+const imageTemplateMe = document.getElementById('image-template-me').innerHTML;
 const imageTemplate = document.getElementById('image-template').innerHTML;
 
 // Options
-const { username, room } = Qs.parse(location.search, {
+const { username, room, roomCreated } = Qs.parse(location.search, {
 	ignoreQueryPrefix: true,
 });
 
@@ -59,13 +62,12 @@ const autoScroll = (type) => {
 				messages.scrollTop = fullChatDivHeight;
 			}
 		}
-	}, 10);
+	}, 40);
 };
 
 // Recieving events
 
 socket.on('locationMessage', (message) => {
-	console.log(message.location);
 	let coords = new google.maps.LatLng(
 		message.location.latitude,
 		message.location.longitude,
@@ -76,7 +78,7 @@ socket.on('locationMessage', (message) => {
 	};
 	let mapDiv = document.createElement('div');
 	mapDiv.id = 'map';
-	mapDiv.classList.add('message', 'me');
+	mapDiv.classList.add('message');
 	let map = new google.maps.Map(mapDiv, mapOptions);
 	let marker = new google.maps.Marker({ map, position: coords });
 	const locationHtml = Mustache.render(locationTemplate, {
@@ -90,8 +92,43 @@ socket.on('locationMessage', (message) => {
 	autoScroll('location');
 });
 
+socket.on('locationMessageMe', (message) => {
+	let coords = new google.maps.LatLng(
+		message.location.latitude,
+		message.location.longitude,
+	);
+	let mapOptions = {
+		zoom: 15,
+		center: coords,
+	};
+	let mapDiv = document.createElement('div');
+	mapDiv.id = 'map';
+	mapDiv.classList.add('message', 'me');
+	let map = new google.maps.Map(mapDiv, mapOptions);
+	let marker = new google.maps.Marker({ map, position: coords });
+	const locationHtml = Mustache.render(locationTemplateMe, {
+		username: message.username,
+		url: message.url,
+		createdAt: moment(message.createdAt).format('H:mm A'),
+	});
+
+	messages.insertAdjacentHTML('beforeend', locationHtml);
+	messages.appendChild(mapDiv);
+	autoScroll('location');
+});
+
 socket.on('imageMessage', (message) => {
 	const imageHtml = Mustache.render(imageTemplate, {
+		imageURL: message.file,
+		username: message.username,
+		createdAt: moment(message.createdAt).format('H:mm A'),
+	});
+	messages.insertAdjacentHTML('beforeend', imageHtml);
+	autoScroll();
+});
+
+socket.on('imageMessageMe', (message) => {
+	const imageHtml = Mustache.render(imageTemplateMe, {
 		imageURL: message.file,
 		username: message.username,
 		createdAt: moment(message.createdAt).format('H:mm A'),
@@ -123,7 +160,7 @@ socket.on('message', (message) => {
 socket.on('roomData', ({ room, users }) => {
 	// Render sidebar inside chat page
 	const htmlSidebar = Mustache.render(sidebarTemplate, { room, users });
-	sidebar.insertAdjacentHTML('beforeend', htmlSidebar);
+	sidebar.innerHTML = htmlSidebar;
 });
 
 // Event Listeners
@@ -181,13 +218,14 @@ sendImageInput.addEventListener('change', (e) => {
 });
 
 // Emitting events
-
-socket.emit('createRoom', { username, room }, (error) => {
-	if (error) {
-		alert(error);
-		location.href = '/';
-	}
-});
+if (roomCreated) {
+	socket.emit('createRoom', { username, room }, (error) => {
+		if (error) {
+			alert(error);
+			location.href = '/';
+		}
+	});
+}
 
 socket.emit('joinRoom', { username, room }, () => {
 	console.log('joined');
