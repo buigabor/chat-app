@@ -51,6 +51,13 @@ button:disabled {
 li {
   list-style: none; }
 
+.fas {
+  color: #7c5cbf; }
+
+.hidden {
+  visibility: hidden;
+  position: absolute; }
+
 /* Join Page Styles */
 .centered-form {
   background: #333744;
@@ -113,7 +120,7 @@ li {
   overflow-y: scroll; }
 
 .chat__nav {
-  height: 11.5vh;
+  height: 12.6vh;
   color: #7c5cbf;
   font-weight: 600;
   background-color: #ebebeb;
@@ -136,9 +143,32 @@ li {
     grid-area: option;
     justify-self: end;
     align-self: center; }
-    .chat__nav-options i {
+    .chat__nav-options .settings {
       font-size: 2.4rem;
-      margin-right: 2.2rem; }
+      margin-right: 2.2rem;
+      cursor: pointer; }
+
+.dropdown-item {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  grid-template-areas: 'icon text .'; }
+
+.option-icon {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  grid-area: icon; }
+
+.dropdown-text {
+  grid-area: text; }
+
+.leave-text {
+  color: red; }
+
+.sp-replacer {
+  width: 3.3rem;
+  height: 1.3rem;
+  border: 1px solid #666; }
 
 /* Chat styles */
 .chat__main {
@@ -163,7 +193,7 @@ li {
   max-width: 40vw;
   border-radius: 2rem;
   display: inline-block;
-  word-wrap: break-word;
+  word-wrap: break-word !important;
   margin: 1rem 0;
   padding: 0.9rem 1.8rem;
   background: whitesmoke;
@@ -299,9 +329,9 @@ li {
 
 /* Chat Sidebar Styles */
 .room-title {
-  font-weight: 400;
-  font-size: 22px;
-  background: #2c2f3a;
+  font-weight: 600;
+  font-size: 28px;
+  background: #7c5cbf;
   padding: 24px; }
 
 .list-title {
@@ -314,3 +344,5 @@ li {
   list-style-type: none;
   font-weight: 300;
   padding: 12px 24px 0 24px; }
+
+/* Color Dropdown */

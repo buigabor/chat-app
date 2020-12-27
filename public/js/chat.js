@@ -11,6 +11,7 @@ const emojiIcon = document.querySelector('.form-input__emoji');
 const tooltip = document.querySelector('.tooltip');
 const emojiPicker = document.querySelector('emoji-picker');
 const sendImageInput = document.getElementById('fileInput');
+const sendImageBtn = document.getElementById('send-picture');
 
 // Templates
 const messageTemplateMe = document.getElementById('message-template-me')
@@ -244,3 +245,37 @@ emojiIcon.addEventListener('click', () => {
 emojiPicker.addEventListener('emoji-click', (event) => {
 	formInput.value += event.detail.unicode;
 });
+
+// Color picker
+$('#color-picker').spectrum({
+	type: 'color',
+	showPalette: 'false',
+	showPaletteOnly: 'true',
+	hideAfterPaletteSelect: 'true',
+	showInitial: 'false',
+	color: '#7c5cbf',
+	palette: [
+		['black', 'rgb(255, 128, 0);', 'hsv 100 70 50', '#238cee'],
+		['red', '#7c5cbf', '#9f5f80', '#65d6ce'],
+		['#FF0BAC', '#a9294f', '#ffabe1', '#3797a4'],
+	],
+	change: function (color) {
+		const theme = color.toHexString();
+		changeTheme(theme);
+	},
+});
+
+const changeTheme = (theme) => {
+	document.querySelector('.chat__nav-title').style.color = theme;
+	document.querySelector('.room-title').style.backgroundColor = theme;
+	let styleTag = $(`<style>.theme { background-color:${theme} }</style>`);
+	$('html > head').append(styleTag);
+	const optionIconsHTML = document.querySelectorAll('.fas');
+	const optionIcons = [...optionIconsHTML];
+	optionIcons.forEach((icon) => {
+		icon.style.color = theme;
+	});
+	formSubmitBtn.style.backgroundColor = theme;
+	sendImageBtn.style.backgroundColor = theme;
+	shareLocationBtn.style.color = theme;
+};

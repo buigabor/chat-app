@@ -13,7 +13,7 @@
 }
 
 .chat__nav {
-	height: 11.5vh;
+	height: 12.6vh;
 	color: $primary-color;
 	font-weight: 600;
 	background-color: $secondary-color;
@@ -39,9 +39,36 @@
 		grid-area: option;
 		justify-self: end;
 		align-self: center;
-		& i {
+		& .settings {
 			font-size: 2.4rem;
 			margin-right: 2.2rem;
+			cursor: pointer;
 		}
 	}
+}
+
+.dropdown-item {
+	cursor: pointer;
+	display: grid;
+	grid-template-columns: 1fr 1.5fr 1fr;
+	grid-template-areas: 'icon text .';
+}
+.option-icon {
+	font-size: 1.2rem;
+	margin-right: 1rem;
+	grid-area: icon;
+}
+
+.dropdown-text {
+	grid-area: text;
+}
+
+.leave-text {
+	color: red;
+}
+
+.sp-replacer {
+	width: 3.3rem;
+	height: 1.3rem;
+	border: 1px solid #666;
 }
