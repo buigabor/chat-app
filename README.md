@@ -8,11 +8,11 @@ https://chatzoid.herokuapp.com/
 
 # Preview
 
+<img src="./public/img/preview1.png">
+<img src="./public/img/preview2.png">
 
 # Used Technology
 
 Front-end: HTML5, SCSS, vanilla JS
 Back-end: NodeJS + Express
 Miscellaneous: Socket.io
-
-
