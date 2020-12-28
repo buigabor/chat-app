@@ -13,6 +13,6 @@ https://chatzoid.herokuapp.com/
 
 # Used Technology
 
-Front-end: HTML5, SCSS, vanilla JS
-Back-end: NodeJS + Express
+Front-end: HTML5, SCSS, vanilla JS  
+Back-end: NodeJS + Express  
 Miscellaneous: Socket.io
