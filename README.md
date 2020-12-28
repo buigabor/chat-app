@@ -1,4 +1,18 @@
 # Chatzoid
 
-Chatzoid is a chat application built with SCSS, HTML and vanilla JS.
+💬 Chatzoid is a chat application that enables joining rooms and instant messaging, including emojis 😎. Sharing your location and sending images, changing themes.
+
+# Website
+
+https://chatzoid.herokuapp.com/
+
+# Preview
+
+
+# Used Technology
+
+Front-end: HTML5, SCSS, vanilla JS
+Back-end: NodeJS + Express
+Miscellaneous: Socket.io
+
 
