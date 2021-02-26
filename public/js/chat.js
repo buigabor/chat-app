@@ -46,7 +46,6 @@ const autoScroll = (type) => {
       const visibleMessageContHeight = messages.offsetHeight + 10;
       const scrolledDistance = messages.scrollTop + visibleMessageContHeight;
       const fullChatDivHeight = messages.scrollHeight;
-      console.log(fullMessageHeight);
       if (fullChatDivHeight - fullMessageHeight <= scrolledDistance) {
         messages.scrollTop = fullChatDivHeight;
       }
@@ -181,8 +180,6 @@ form.addEventListener('submit', (e) => {
     if (error) {
       return console.log(error);
     }
-
-    console.log('Delivered');
   });
 });
 
@@ -196,7 +193,6 @@ shareLocationBtn.addEventListener('click', () => {
     const longitude = position.coords.longitude;
 
     socket.emit('sendLocation', { latitude, longitude }, (message) => {
-      console.log(message);
       shareLocationBtn.removeAttribute('disabled');
     });
   });
@@ -213,7 +209,6 @@ sendImageInput.addEventListener('change', (e) => {
   sendImageInput.setAttribute('disabled', 'disabled');
 
   socket.emit('sendImage', imageURL, (message) => {
-    console.log(message);
     sendImageInput.removeAttribute('disabled');
   });
 });

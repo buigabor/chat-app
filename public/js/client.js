@@ -25,7 +25,6 @@ createRoomForm.addEventListener('submit', () => {
 });
 
 availableRooms.addEventListener('click', (e) => {
-	console.log(e.target.closest('button').dataset.item);
 	let room = e.target.closest('button').dataset.item;
 	let username = nameInput.value;
 	roomName.value = room;
