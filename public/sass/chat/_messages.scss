@@ -1,49 +1,57 @@
 .message {
-	max-width: 40vw;
-	border-radius: 2rem;
-	display: inline-block;
-	word-wrap: break-word !important;
-	margin: 1rem 0;
-	padding: 0.9rem 1.8rem;
-	background: whitesmoke;
-	font-size: calc(0.5rem + 1vw);
+  max-width: 40vw;
+  border-radius: 2rem;
+  display: inline-block;
+  word-wrap: break-word !important;
+  margin: 1rem 0;
+  padding: 0.9rem 1.8rem;
+  background: whitesmoke;
+  font-size: calc(0.5rem + 1vw);
 }
 
 .me {
-	background: rgba(132, 103, 194, 1);
-	align-self: flex-end;
-	color: white;
-	& .message__meta {
-		color: white;
-	}
-	& a {
-		color: white !important;
-	}
+  background: rgba(132, 103, 194, 1);
+  align-self: flex-end;
+  color: white;
+  & .message__meta {
+    color: white;
+  }
+  & a {
+    color: white !important;
+  }
 }
 
 .message__name {
-	font-weight: 600;
-	font-size: 14px;
-	margin-right: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 8px;
 }
 
 .message__meta {
-	color: #777;
-	font-size: 14px;
+  color: #777;
+  font-size: 14px;
 }
 
 .message a {
-	color: #0070cc;
+  color: #0070cc;
 }
 
 /* Emoji */
 
-.tooltip:not(.shown) {
-	display: none;
+emoji-picker {
+  position: absolute;
+  right: -8rem;
+  bottom: 5rem;
 }
 
-.tooltip {
-	position: absolute;
-	right: -10.5rem;
-	top: -25.5rem;
+emoji-picker:not(.shown) {
+  display: none;
 }
+
+// emoji-picker {
+//   position: absolute;
+//   top: 0rem;
+//   right: 0rem;
+//   // right: -10.5rem;
+//   // top: -25.5rem;
+// }

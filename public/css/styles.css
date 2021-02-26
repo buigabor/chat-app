@@ -221,13 +221,13 @@ li {
   color: #0070cc; }
 
 /* Emoji */
-.tooltip:not(.shown) {
-  display: none; }
-
-.tooltip {
+emoji-picker {
   position: absolute;
-  right: -10.5rem;
-  top: -25.5rem; }
+  right: -8rem;
+  bottom: 5rem; }
+
+emoji-picker:not(.shown) {
+  display: none; }
 
 /* Message Composition Styles */
 .form-wrapper {
