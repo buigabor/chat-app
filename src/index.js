@@ -77,7 +77,6 @@ io.on('connection', (socket) => {
 
     const user = getUser(socket.id);
 
-    // io.to(user.room).emit('messageMe', generateMessage(user.username, message));
     socket.broadcast
       .to(user.room)
       .emit('message', generateMessage(user.username, message));
@@ -87,14 +86,6 @@ io.on('connection', (socket) => {
 
   socket.on('sendLocation', (location, callback) => {
     const user = getUser(socket.id);
-    // io.to(user.room).emit(
-    // 	'locationMessage',
-    // 	generateLocationMessage(
-    // 		user.username,
-    // 		`https://google.com/maps?q=${location.latitude},${location.longitude}`,
-    // 		location,
-    // 	),
-    // );
 
     socket.broadcast
       .to(user.room)
@@ -119,10 +110,6 @@ io.on('connection', (socket) => {
 
   socket.on('sendImage', (imageFile, callback) => {
     const user = getUser(socket.id);
-    // io.to(user.room).emit(
-    // 	'imageMessage',
-    // 	generateImageMessage(user.username, imageFile),
-    // );
 
     socket.broadcast
       .to(user.room)

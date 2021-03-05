@@ -16,13 +16,6 @@ const removeRoom = (roomToRemove) => {
     return room !== roomToRemove;
   });
   return rooms;
-  // const index = rooms.findIndex((room) => roomToRemove === room);
-
-  // if (index !== -1) {
-  // 	return rooms.splice(index, 1)[0];
-  // } else {
-  // 	return { error: 'Room not found' };
-  // }
 };
 
 const getRooms = () => {

@@ -8,35 +8,23 @@ const createRoomForm = document.getElementById('createForm');
 
 // Templates
 const availableRoomsTemplate = document.getElementById('rooms-template')
-	.innerHTML;
+  .innerHTML;
 
 // Recieving events
 
 socket.on('availableRooms', (rooms) => {
-	// Render availabe rooms at landing page
-	const htmlAvailableRooms = Mustache.render(availableRoomsTemplate, rooms);
-	availableRooms.innerHTML = htmlAvailableRooms;
+  // Render availabe rooms at landing page
+  const htmlAvailableRooms = Mustache.render(availableRoomsTemplate, rooms);
+  availableRooms.innerHTML = htmlAvailableRooms;
 });
 
 // Event Listeners
 
 createRoomForm.addEventListener('submit', () => {
-	roomCreated.value = true;
+  roomCreated.value = true;
 });
 
 availableRooms.addEventListener('click', (e) => {
-	let room = e.target.closest('button').dataset.item;
-	let username = nameInput.value;
-	roomName.value = room;
-	// socket.emit('joinRoom', { username, room }, (message) => {
-	// 	console.log(message);
-	// });
+  let room = e.target.closest('button').dataset.item;
+  roomName.value = room;
 });
-
-// const buttons = document.getElementsByTagName('button');
-// if (!buttons) return;
-// let buttonsArray = [...buttons];
-// buttonsArray.shift();
-// buttonsArray.forEach((element) => {
-// 	element.addEventListener('click', (e) => {});
-// });
