@@ -12,6 +12,7 @@ const tooltip = document.querySelector('.tooltip');
 const emojiPicker = document.querySelector('emoji-picker');
 const sendImageInput = document.getElementById('fileInput');
 const sendImageBtn = document.getElementById('send-picture');
+const sendMessageBtn = document.getElementById('submit-message');
 
 // Templates
 const messageTemplateMe = document.getElementById('message-template-me')
@@ -171,6 +172,21 @@ form.addEventListener('submit', (e) => {
   formSubmitBtn.setAttribute('disabled', 'disabled');
 
   const message = e.target.elements.message.value;
+
+  socket.emit('sendMessage', message, (error) => {
+    formSubmitBtn.removeAttribute('disabled');
+    formInput.value = '';
+    formInput.focus();
+
+    if (error) {
+      return console.log(error);
+    }
+  });
+});
+
+sendMessageBtn.addEventListener('click', (e) => {
+  const message = form.elements.message.value;
+  console.log(message);
 
   socket.emit('sendMessage', message, (error) => {
     formSubmitBtn.removeAttribute('disabled');
