@@ -1,18 +1,42 @@
-# Chatzoid
+# 💬 Chatzoid
 
-💬 Chatzoid is a chat application that enables joining rooms and instant messaging, including emojis 😎. Sharing your location and sending images, changing themes.
+Chatzoid is a real-time chat application that sends and shows messages to all of the room members instantly without any page refresh.
 
-# Website
+## ✨ Features
 
-https://chatzoid.herokuapp.com/
+- Create and join rooms 🏠
+- Send emojis 😃
+- Upload images 🖼️
+- Share location 📍
+- Change the color theme 🌈
 
-# Preview
+## Installation
+
+Use the package manager [npm](https://www.npmjs.com/) to install the dependencies.
+
+```bash
+npm install
+```
+
+To run the development server:
+
+```bash
+npm run dev
+```
+
+To run sass compiling:
+
+```bash
+npm run scss
+```
+
+## Technologies Used
+
+Front-end: HTML5, SCSS, Vanilla JS  
+Back-end: NodeJS + Express  
+Miscellaneous: Socket.io
+
+## Preview
 
 <img src="./public/img/preview1.png">
 <img src="./public/img/preview2.png">
-
-# Used Technology
-
-Front-end: HTML5, SCSS, vanilla JS  
-Back-end: NodeJS + Express  
-Miscellaneous: Socket.io
