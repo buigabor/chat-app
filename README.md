@@ -10,7 +10,7 @@ Chatzoid is a real-time chat application that sends and shows messages to all of
 - Share location 📍
 - Change the color theme 🌈
 
-## Installation
+## 🕹️ Installation
 
 Use the package manager [npm](https://www.npmjs.com/) to install the dependencies.
 
@@ -30,9 +30,9 @@ To run sass compiling:
 npm run scss
 ```
 
-## Technologies Used
+## 🖥️ Technologies Used
 
-Front-end: HTML5, SCSS, Vanilla JS  
+Front-end: HTML5, SASS, Vanilla JS  
 Back-end: NodeJS + Express  
 Miscellaneous: Socket.io
 
